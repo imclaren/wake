@@ -52,6 +52,9 @@ category = "public.app-category.utilities"
 pkg = true
 feed = "https://wake.calmapps.com/releases/appcast.xml"
 sparkle_public_key = "KL4gf7e9kNooOu3kANfnAlwhYzqfkTth+K/uvrSyXGI="
+# What the Homebrew cask says, since Homebrew does not allow a description
+# that names the platform.
+cask_desc = "Prevents sleep, even with the lid closed"
 # The appcast at the release folder's top as well, where the feed points.
 appcast = "appcast.xml"
 

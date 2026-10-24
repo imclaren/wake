@@ -19,7 +19,12 @@ and the display can be kept on as well or allowed to turn off.
 ## Install
 
 Download the disk image or the installer package from
-[wake.calmapps.com](https://wake.calmapps.com).
+[wake.calmapps.com](https://wake.calmapps.com), or install it with
+[Homebrew](https://brew.sh):
+
+```bash
+brew install --cask imclaren/tap/wake
+```
 
 The first time the Mac is kept awake with its lid closed, the app explains
 why it needs an administrator's password, and then asks for it, once, and
@@ -143,6 +148,15 @@ by every installer.
    ```
 
 3. Publish it on the site, as the next section says.
+
+4. Once the site serves it, put the new cask in the Homebrew tap. The
+   release folder is a checkout of the `releases` branch.
+
+   ```bash
+   git worktree add /tmp/wake-releases origin/releases
+   go run -C ../vero/cmd/vero-repo . publish --homebrew --app "$PWD/vero-app.toml" --site /tmp/wake-releases
+   git worktree remove /tmp/wake-releases
+   ```
 
 `scripts/release.sh --help` prints the full setup and every option.
 
