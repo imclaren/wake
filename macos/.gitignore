@@ -1,0 +1,3 @@
+.build/
+.swiftpm/
+wake-worker

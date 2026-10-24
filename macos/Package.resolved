@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "sparkle",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sparkle-project/Sparkle",
+      "state" : {
+        "revision" : "eef1a539a373c1f1a320624b1130fc5de7b2e100",
+        "version" : "2.10.0"
+      }
+    },
+    {
+      "identity" : "vero",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/imclaren/vero",
+      "state" : {
+        "revision" : "d9a301defa5efc5b2ce030b803b8d24b9358241d",
+        "version" : "0.18.1"
+      }
+    }
+  ],
+  "version" : 2
+}

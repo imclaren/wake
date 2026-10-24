@@ -1,0 +1,70 @@
+# vero-app.toml describes wake to vero's packaging and tests. vero's
+# example/vero-app.toml has a comment on every setting. Paths are relative
+# to this file. scripts/release.sh builds a release from it.
+
+name = "wake"
+display_name = "wake"
+id = "com.calmapps.wake"
+# It lives in the menu bar.
+menubar = true
+summary = "Keeps a MacBook awake after its lid is closed."
+description = """
+wake sits in the menu bar. Turn its switch on and the Mac does not go
+to sleep when you close the lid, so that a download, a build or a backup
+runs on until you turn the switch off.
+
+Turning it on asks for an administrator's password. Sleep is disabled only
+while the lid is open, and enabled again the moment the lid closes, which
+leaves the Mac awake. Turn it off while the lid is closed and the Mac goes
+to sleep at once. It is a menu bar version of clashman's caffeinate+.
+"""
+# scripts/release.sh replaces this with WAKE_MAINTAINER from
+# ~/.config/wake/release.env, or with your git email.
+publisher = "Calm Apps <you@example.com>"
+homepage = "https://wake.calmapps.com"
+# Where the release folder is served: the site's /releases/.
+site = "https://wake.calmapps.com/releases"
+licence = "MIT"
+icon = "icon.png"
+
+[worker]
+package = "cmd/worker"
+name = "wake-worker"
+
+[needs]
+network = true
+
+# The Mac app, a Swift package. It checks the feed below for updates with
+# Sparkle, and the key is the public half of the one in
+# ~/.config/wake/vero-key, which signs every update. Neither may
+# change once a copy is installed, or that copy stops updating.
+[macos]
+folder = "macos"
+product = "wake"
+minimum = "13.0"
+category = "public.app-category.utilities"
+# An installer package as well as the disk image, which installs into
+# /Applications and gives the app to whoever installed it, so that Sparkle
+# can update it without an administrator's password.
+pkg = true
+feed = "https://wake.calmapps.com/releases/appcast.xml"
+sparkle_public_key = "KL4gf7e9kNooOu3kANfnAlwhYzqfkTth+K/uvrSyXGI="
+# The appcast at the release folder's top as well, where the feed points.
+appcast = "appcast.xml"
+
+# What vero's tests do with the app once it is installed and its panel is
+# open, recorded for the install page. Turning it on asks for a password,
+# which a test cannot give, so the test looks at the panel as it starts.
+[test]
+files = []
+# A copy of its own, so that a test on your own computer cannot touch the
+# settings of the copy you use: kit/profile follows VERO_PROFILE, and so
+# does vero's Swift package.
+env = { VERO_PROFILE = "test" }
+record = true
+
+[[test.step]]
+call = "status"
+
+[[test.step]]
+pause = 3

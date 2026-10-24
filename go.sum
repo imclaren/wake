@@ -1,0 +1,8 @@
+github.com/godbus/dbus/v5 v5.2.2 h1:TUR3TgtSVDmjiXOgAAyaZbYmIeP3DPkld3jgKGV8mXQ=
+github.com/godbus/dbus/v5 v5.2.2/go.mod h1:3AAv2+hPq5rdnr5txxxRwiGjPXamgoIHgz9FPBfOp3c=
+github.com/imclaren/vero v0.18.1 h1:9Go4W1Sc6867KY8bKrBFlwmuKesZvrFWGWlLpIW79ak=
+github.com/imclaren/vero v0.18.1/go.mod h1:3wU70b5WePwUaJrcON6xi5wGb6Brr0aJ9njzZjzvgOw=
+github.com/imclaren/vero/kit v0.18.1 h1:GqvIa/1LdNHXN+kTRvX2FUfrqvH2U8E9sb+9vyG0pbs=
+github.com/imclaren/vero/kit v0.18.1/go.mod h1:pUsXv6Ag8MSHpnuqkEZeXnjsvzvlyeSKUC/rJeTx3pY=
+golang.org/x/sys v0.48.0 h1:bbX/i/6MgT9BVLM9RT1thmxL04yeTAhbEz4SyadbXoo=
+golang.org/x/sys v0.48.0/go.mod h1:hNLxWAXmnKAxqDtdwIYC4bM9oQPEecfsnNMuSxOs3og=
