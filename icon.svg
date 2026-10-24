@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- wake's application icon: a line drawing of a cup and saucer, as in the
+     menu bar, with three wisps of steam fading as they rise, in the
+     family's blue on paper. rsvg-convert renders icon.png and
+     site/pages/icon.png from it. The drawing is scaled to four fifths
+     about the icon's centre and lifted, so that it sits a little above the
+     middle with room around it. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbfcfd"/>
+      <stop offset="1" stop-color="#e3e9ef"/>
+    </linearGradient>
+    <linearGradient id="fade" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#2a5490"/>
+      <stop offset="1" stop-color="#2a5490" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="40" y="40" width="944" height="944" rx="212" fill="url(#paper)"/>
+
+  <g transform="translate(512 520) scale(0.8) translate(-512 -600)">
+    <!-- Steam, three wisps, the middle one tallest. -->
+    <g fill="none" stroke="url(#fade)" stroke-width="13" stroke-linecap="round">
+      <path d="M420 420 C388 373.3 452 326.7 420 280"/>
+      <path d="M512 420 C480 363.3 544 306.7 512 250"/>
+      <path d="M604 420 C572 373.3 636 326.7 604 280"/>
+    </g>
+    <!-- The cup, its handle and the saucer. -->
+    <g fill="none" stroke="#2a5490" stroke-width="16.25" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M318 500 H690 L664 708 Q658 752 614 752 H394 Q350 752 344 708 Z"/>
+      <path d="M690 540 A80 80 0 1 1 672 700"/>
+      <path d="M262 822 H746"/>
+    </g>
+  </g>
+</svg>

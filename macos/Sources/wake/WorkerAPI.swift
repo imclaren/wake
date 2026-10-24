@@ -20,6 +20,9 @@ struct Status: Codable, Hashable, Sendable {
     var since: String = ""
     /// Problem is why the last attempt to turn it on failed, in a sentence.
     var problem: String = ""
+    /// Remember is whether the switch is remembered across logins: turned
+    /// on again when the worker starts, if it was on when it last ran.
+    var remember: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case on
@@ -29,6 +32,7 @@ struct Status: Codable, Hashable, Sendable {
         case hasLid
         case since
         case problem
+        case remember
     }
 }
 
@@ -42,6 +46,7 @@ extension Status {
         hasLid = try c.decodeIfPresent(Bool.self, forKey: .hasLid) ?? false
         since = try c.decodeIfPresent(String.self, forKey: .since) ?? ""
         problem = try c.decodeIfPresent(String.self, forKey: .problem) ?? ""
+        remember = try c.decodeIfPresent(Bool.self, forKey: .remember) ?? false
     }
     func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy: CodingKeys.self)
@@ -52,12 +57,25 @@ extension Status {
         try c.encode(hasLid, forKey: .hasLid)
         try c.encode(since, forKey: .since)
         try c.encode(problem, forKey: .problem)
+        try c.encode(remember, forKey: .remember)
+    }
+}
+
+struct RememberRequest: NamedRequest {
+    typealias Reply = Status
+    static let name = "remember"
+    /// On is whether to remember the switch across logins.
+    var on: Bool = false
+
+    enum CodingKeys: String, CodingKey {
+        case on
     }
 }
 
 /// Update handles a request with no accompanying data. "status" returns
 /// the state, "turnOn" keeps the Mac awake after its lid is closed, and
-/// "turnOff" lets it sleep again.
+/// "turnOff" lets it sleep again. "remember" sets whether the switch is
+/// remembered across logins, and takes a Remember.
 struct StatusRequest: NamedRequest {
     typealias Reply = Status
     static let name = "status"

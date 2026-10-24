@@ -2,5 +2,5 @@ dist/
 .releases/
 .release.vero-app.toml
 releases/
-worker
-wake-worker
+/worker
+/wake-worker

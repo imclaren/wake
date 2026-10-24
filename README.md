@@ -16,16 +16,25 @@ vero-app.toml      describes the app to vero's packaging and tests
 ## How it works
 
 The setting that stops a closing lid putting a Mac to sleep,
-`SleepDisabled`, may be changed only by an administrator. When the switch
-is turned on, the worker runs a second copy of itself as root through
+`SleepDisabled`, may be changed only by an administrator. The first time
+the switch is turned on, the worker writes a rule for sudo through
 osascript's "with administrator privileges", which shows the system's own
-password dialog once. That copy, the helper, disables sleep while the lid
-is open and enables it again the moment the lid closes, which leaves the
-Mac awake, because it is closing the lid that puts a Mac to sleep. The
-worker also holds caffeinate's assertion against idle sleep while the
-switch is on.
+password dialog once. The rule, in `/private/etc/sudoers.d/wake-<uid>`,
+lets that account run the three `pmset` commands that change the setting
+and put the Mac to sleep, and nothing else, without a password. It stays
+until the file is removed, so the password is never asked for again, on
+that launch or any other. Removing the file undoes it.
 
-The panel also has "Open at login", which asks macOS itself, through
+Then the worker runs a second copy of itself, the helper, which runs those
+commands through `sudo -n`. It disables sleep while the lid is open and
+enables it again the moment the lid closes, which leaves the Mac awake,
+because it is closing the lid that puts a Mac to sleep. The worker also
+holds caffeinate's assertion against idle sleep while the switch is on.
+
+The panel also has "Remember across logins", which keeps where the switch
+was left in `settings.json` in the profile's folder and turns it on again
+when the worker starts, with a notice that leaving both on means the Mac
+never sleeps; and "Open at login", which asks macOS itself, through
 SMAppService, so that the app shows under Login Items in System Settings.
 
 The helper ends when the file the worker made for it goes away, which is

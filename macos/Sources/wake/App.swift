@@ -79,6 +79,17 @@ struct Panel: View {
 
             Divider()
 
+            Toggle("Remember across logins", isOn: Binding(
+                get: { status.remember },
+                set: { on in vero.call(RememberRequest(on: on)) }
+            ))
+            .toggleStyle(.checkbox)
+            .disabled(vero.state == nil || !status.hasLid)
+            Text("Leaving this and the switch on means the Mac never sleeps, since wake turns the switch on again at every login.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
             Toggle("Open at login", isOn: Binding(get: { loginItem.enabled }, set: { loginItem.set($0) }))
                 .toggleStyle(.checkbox)
                 .onAppear { loginItem.refresh() }
@@ -108,7 +119,7 @@ struct Panel: View {
         case "nolid":
             return "This Mac has no lid."
         case "starting":
-            return "Waiting for an administrator's password. Turning this on asks for one each time."
+            return "Waiting for an administrator's password. It is asked for once, the first time this is turned on."
         case "open":
             return "Sleep is off until the lid closes, and the Mac stays awake once it is closed. On since \(s.since). A MacBook that is awake in a bag can get hot."
         case "closed":

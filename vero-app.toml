@@ -13,10 +13,11 @@ wake sits in the menu bar. Turn its switch on and the Mac does not go
 to sleep when you close the lid, so that a download, a build or a backup
 runs on until you turn the switch off.
 
-Turning it on asks for an administrator's password. Sleep is disabled only
-while the lid is open, and enabled again the moment the lid closes, which
-leaves the Mac awake. Turn it off while the lid is closed and the Mac goes
-to sleep at once. It is a menu bar version of clashman's caffeinate+.
+The first time it is turned on it asks for an administrator's password,
+and never again. Sleep is disabled only while the lid is open, and enabled
+again the moment the lid closes, which leaves the Mac awake. Turn it off
+while the lid is closed and the Mac goes to sleep at once. It is a menu
+bar version of clashman's caffeinate+.
 """
 # scripts/release.sh replaces this with WAKE_MAINTAINER from
 # ~/.config/wake/release.env, or with your git email.
@@ -53,8 +54,9 @@ sparkle_public_key = "KL4gf7e9kNooOu3kANfnAlwhYzqfkTth+K/uvrSyXGI="
 appcast = "appcast.xml"
 
 # What vero's tests do with the app once it is installed and its panel is
-# open, recorded for the install page. Turning it on asks for a password,
-# which a test cannot give, so the test looks at the panel as it starts.
+# open, recorded for the install page. The first turn on asks for a
+# password, which a test cannot give, so the test looks at the panel as it
+# starts.
 [test]
 files = []
 # A copy of its own, so that a test on your own computer cannot touch the
