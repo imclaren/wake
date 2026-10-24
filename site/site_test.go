@@ -46,7 +46,7 @@ func TestDownload(t *testing.T) {
 // robots.txt and the health check.
 func TestSmallPages(t *testing.T) {
 	s := New(Config{BaseURL: "https://example.com", ReleasesDir: t.TempDir(), Log: t.Logf})
-	for path, want := range map[string]string{"/privacy": "text/html; charset=utf-8", "/icon.png": "image/png", "/demo/panel.png": "image/png", "/robots.txt": "text/plain; charset=utf-8", "/healthz": "text/plain; charset=utf-8"} {
+	for path, want := range map[string]string{"/privacy": "text/html; charset=utf-8", "/icon.png": "image/png", "/favicon.ico": "image/png", "/demo/panel.png": "image/png", "/robots.txt": "text/plain; charset=utf-8", "/healthz": "text/plain; charset=utf-8"} {
 		rec := httptest.NewRecorder()
 		s.ServeHTTP(rec, httptest.NewRequest("GET", path, nil))
 		if rec.Code != http.StatusOK || rec.Header().Get("Content-Type") != want {

@@ -64,12 +64,17 @@ func New(cfg Config) *Site {
 		w.Header().Set("Cache-Control", "public, max-age=86400")
 		w.Write(data)
 	})
-	s.mux.HandleFunc("GET /icon.png", func(w http.ResponseWriter, r *http.Request) {
+	// The icon, at the address the pages link to and at /favicon.ico, which
+	// a browser asks for on a page that links none, such as the release
+	// folder's. Browsers accept a PNG there.
+	icon := func(w http.ResponseWriter, r *http.Request) {
 		data, _ := pages.ReadFile("pages/icon.png")
 		w.Header().Set("Content-Type", "image/png")
 		w.Header().Set("Cache-Control", "public, max-age=86400")
 		w.Write(data)
-	})
+	}
+	s.mux.HandleFunc("GET /icon.png", icon)
+	s.mux.HandleFunc("GET /favicon.ico", icon)
 	// The installer, for the page's button: kit/site sends the browser to
 	// the newest one named in latest.json.
 	s.mux.HandleFunc("GET /download", func(w http.ResponseWriter, r *http.Request) {
