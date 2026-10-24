@@ -3,7 +3,7 @@
 A Mac menu bar app that keeps a MacBook awake after its lid is closed, and
 turns that on and off with a switch. It is a menu bar version of
 [caffeinate+](https://github.com/clashman/caffeinate-plus), a command line
-tool by clashman, and it is built on [vero](https://github.com/imclaren/vero).
+tool by clashman.
 
 Turn the switch on and the Mac does not go to sleep when you close the lid,
 so that a download, a build or a backup runs on until you turn the switch
