@@ -1,6 +1,5 @@
 // Command server is wake.calmapps.com (package site): the app's page,
-// and the releases and Sparkle appcast. ~/src/builder deploys it as the
-// service wake on the tasks server.
+// and the releases and Sparkle appcast.
 //
 //	go run ./cmd/server      # http://127.0.0.1:8011
 //
@@ -11,8 +10,7 @@
 // |              | appcast.xml and latest.json                           |
 //
 // They come from the process environment, falling back to a .env file
-// beside the binary, which is how the builder deploys every service on
-// that host.
+// beside the binary.
 package main
 
 import (

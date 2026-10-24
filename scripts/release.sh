@@ -18,10 +18,9 @@
 # The release folder lives on the repository's releases branch, not on
 # main. Each release replaces the branch with a single commit holding the
 # newest version, and force-pushes it, so that the repository's history
-# does not grow by every installer of every release. The builder clones
-# that branch into releases/ when it deploys (RELEASES_BRANCH in its
-# service-wake.conf). After this script, redeploy the service on the
-# tasks server, with bash bootstrap.sh update, to publish.
+# does not grow by every installer of every release. The site serves a
+# clone of that branch, RELEASES_DIR in cmd/server. After this script,
+# pull the branch there and restart the server to publish.
 #
 #
 # ONE-TIME SETUP
@@ -182,7 +181,7 @@ if [ -z "$DRY_RUN" ]; then
     git -C "$REPO" -c http.postBuffer=1073741824 push --quiet --force origin "$COMMIT:refs/heads/releases"
     say "Done"
     echo "  wake $VERSION is on the releases branch."
-    echo "  Now redeploy the service to publish it: bash bootstrap.sh update on the tasks server."
+    echo "  To publish it, pull the branch into the site's RELEASES_DIR and restart the server."
 else
     say "Done"
     echo "  $SITE"
