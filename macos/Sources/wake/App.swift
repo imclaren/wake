@@ -33,6 +33,9 @@ struct WakeApp: App {
             Panel().environmentObject(vero).environmentObject(updates).environmentObject(loginItem)
         } label: {
             Image(systemName: vero.state?.on == true ? "cup.and.saucer.fill" : "cup.and.saucer")
+                #if DEBUG
+                .task { await PanelSnapshot.takeIfAsked(vero: vero, updates: updates, loginItem: loginItem) }
+                #endif
         }
         .menuBarExtraStyle(.window)
     }
@@ -268,3 +271,48 @@ final class LoginItem: ObservableObject {
         refresh()
     }
 }
+
+#if DEBUG
+/// A debug build run with WAKE_SNAPSHOT set to a file draws the panel, as
+/// it is once the worker has answered, into that file as a PNG at twice its
+/// size, and quits. It is how the site's screenshot of the panel is made,
+/// and a release build does not contain it.
+@MainActor
+enum PanelSnapshot {
+    static func takeIfAsked(vero: VeroModel<Status>, updates: VeroUpdater, loginItem: LoginItem) async {
+        guard let path = ProcessInfo.processInfo.environment["WAKE_SNAPSHOT"] else { return }
+        while vero.state == nil {
+            try? await Task.sleep(nanoseconds: 100_000_000)
+        }
+        let panel = Panel()
+            .environmentObject(vero).environmentObject(updates).environmentObject(loginItem)
+            .background(Color(nsColor: .windowBackgroundColor))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+        let view = NSHostingView(rootView: panel)
+        view.appearance = NSAppearance(named: .aqua)
+        let size = view.fittingSize
+        let window = NSWindow(contentRect: NSRect(x: -10000, y: -10000, width: size.width, height: size.height),
+                              styleMask: [.borderless], backing: .buffered, defer: false)
+        window.isOpaque = false
+        window.backgroundColor = .clear
+        window.contentView = view
+        window.orderFrontRegardless()
+        try? await Task.sleep(nanoseconds: 800_000_000)
+        view.layoutSubtreeIfNeeded()
+        guard let rep = NSBitmapImageRep(
+            bitmapDataPlanes: nil, pixelsWide: Int(size.width * 2), pixelsHigh: Int(size.height * 2),
+            bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
+            colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0) else { exit(1) }
+        rep.size = size
+        view.cacheDisplay(in: view.bounds, to: rep)
+        do {
+            try rep.representation(using: .png, properties: [:])?.write(to: URL(fileURLWithPath: path))
+            print("wake: drew the panel, \(Int(size.width)) by \(Int(size.height)), into \(path)")
+            exit(0)
+        } catch {
+            print("wake: could not write \(path): \(error)")
+            exit(1)
+        }
+    }
+}
+#endif
