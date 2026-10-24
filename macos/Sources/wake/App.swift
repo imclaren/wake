@@ -1,3 +1,4 @@
+import ServiceManagement
 import SwiftUI
 import Vero
 import VeroUpdates
@@ -24,9 +25,12 @@ struct WakeApp: App {
     // run with VERO_PROFILE set does not check for updates at all.
     @StateObject private var updates = VeroUpdater()
 
+    // Whether macOS opens the app at login.
+    @StateObject private var loginItem = LoginItem()
+
     var body: some Scene {
         MenuBarExtra {
-            Panel().environmentObject(vero).environmentObject(updates)
+            Panel().environmentObject(vero).environmentObject(updates).environmentObject(loginItem)
         } label: {
             Image(systemName: vero.state?.on == true ? "cup.and.saucer.fill" : "cup.and.saucer")
         }
@@ -39,6 +43,7 @@ struct WakeApp: App {
 struct Panel: View {
     @EnvironmentObject var vero: VeroModel<Status>
     @EnvironmentObject var updates: VeroUpdater
+    @EnvironmentObject var loginItem: LoginItem
 
     private var status: Status { vero.state ?? Status() }
 
@@ -67,6 +72,17 @@ struct Panel: View {
                 .fixedSize(horizontal: false, vertical: true)
 
             if let problem {
+                Text(problem)
+                    .foregroundStyle(.red)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Divider()
+
+            Toggle("Open at login", isOn: Binding(get: { loginItem.enabled }, set: { loginItem.set($0) }))
+                .toggleStyle(.checkbox)
+                .onAppear { loginItem.refresh() }
+            if let problem = loginItem.problem {
                 Text(problem)
                     .foregroundStyle(.red)
                     .fixedSize(horizontal: false, vertical: true)
@@ -104,5 +120,29 @@ struct Panel: View {
         default:
             return "Starting the worker."
         }
+    }
+}
+
+/// Whether macOS opens the app at login, asked of the system itself, which
+/// shows the app under Login Items in System Settings. A copy that is not
+/// an app bundle, such as the debug build, cannot be registered, and the
+/// system's reason is shown.
+@MainActor
+final class LoginItem: ObservableObject {
+    @Published private(set) var enabled = SMAppService.mainApp.status == .enabled
+    @Published private(set) var problem: String?
+
+    func refresh() {
+        enabled = SMAppService.mainApp.status == .enabled
+    }
+
+    func set(_ on: Bool) {
+        do {
+            if on { try SMAppService.mainApp.register() } else { try SMAppService.mainApp.unregister() }
+            problem = nil
+        } catch {
+            problem = "macOS did not allow this. \(error.localizedDescription)"
+        }
+        refresh()
     }
 }

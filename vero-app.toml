@@ -20,7 +20,7 @@ to sleep at once. It is a menu bar version of clashman's caffeinate+.
 """
 # scripts/release.sh replaces this with WAKE_MAINTAINER from
 # ~/.config/wake/release.env, or with your git email.
-publisher = "Calm Apps <you@example.com>"
+publisher = "calmapps <you@example.com>"
 homepage = "https://wake.calmapps.com"
 # Where the release folder is served: the site's /releases/.
 site = "https://wake.calmapps.com/releases"

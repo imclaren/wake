@@ -1,129 +1,91 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>wake</title>
-<meta name="description" content="A menu bar app that keeps a MacBook awake after its lid is closed.">
-<link rel="icon" type="image/png" href="/icon.png">
-<link rel="apple-touch-icon" href="/icon.png">
+{{template "head" .}}<title>wake</title>
+<meta name="description" content="A Mac menu bar app that keeps a MacBook awake after its lid is closed.">
 <link rel="canonical" href="{{.BaseURL}}/">
-<meta name="color-scheme" content="light dark">
-<style>
-:root {
-  --bg: #f5f7fa;
-  --card: #ffffff;
-  --text: #15202b;
-  --muted: #55636f;
-  --rule: rgba(21, 32, 43, 0.12);
-  --accent: #2a5490;
-  --accent-text: #ffffff;
-  --warn: #8a5a00;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0d1520;
-    --card: #15202d;
-    --text: #e8edf2;
-    --muted: #a3afba;
-    --rule: rgba(232, 237, 242, 0.14);
-    --accent: #6f9fdc;
-    --accent-text: #0d1520;
-    --warn: #f0c36b;
-  }
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font: 17px/1.55 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-main { max-width: 40rem; margin: 0 auto; padding: 3rem 1.25rem 4rem; }
-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
-header img { width: 72px; height: 72px; border-radius: 16px; }
-h1 { font-size: 2rem; margin: 0; letter-spacing: -0.01em; }
-.lead { font-size: 1.25rem; color: var(--muted); margin: 0; }
-h2 { font-size: 1.15rem; margin: 2.25rem 0 0.5rem; }
-p { margin: 0.6rem 0; }
-.download {
-  display: inline-block;
-  background: var(--accent);
-  color: var(--accent-text);
-  text-decoration: none;
-  font-weight: 600;
-  padding: 0.75rem 1.4rem;
-  border-radius: 10px;
-  margin: 0.75rem 0 0.25rem;
-}
-.download:hover { filter: brightness(1.08); }
-.small { color: var(--muted); font-size: 0.95rem; }
-a { color: var(--accent); }
-.card {
-  background: var(--card);
-  border: 1px solid var(--rule);
-  border-radius: 14px;
-  padding: 1.25rem 1.4rem;
-  margin: 1.5rem 0;
-}
-ol { padding-left: 1.3rem; }
-li { margin: 0.4rem 0; }
-.caution { color: var(--warn); }
-footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9rem; }
-</style>
-</head>
-<body>
-<main>
-<header>
-  <img src="/icon.png" alt="" width="72" height="72">
-  <div>
-    <h1>wake</h1>
-    <p class="lead">Keeps your MacBook awake after you close the lid.</p>
+{{template "top" .}}
+<section class="hero">
+  <div class="wrap hero__inner">
+    <h1>Close the lid. Keep working.</h1>
+    <p class="lede">wake is a Mac menu bar app with one switch. Turn it on and
+    your MacBook stays awake after you close the lid, so that a download, a
+    build or a backup runs on until you turn it off.</p>
+    <div class="cta">
+      {{if .Released}}<a class="btn" href="/download">Download for Mac</a>{{end}}
+      <a class="btn btn--ghost" href="#how">How it works</a>
+    </div>
   </div>
-</header>
+</section>
 
-<div class="card">
-  {{if .Released}}
-  <a class="download" href="/download">Download for Mac{{if .Version}} · {{.Version}}{{end}}</a>
-  <p class="small">An installer for macOS 13 or later, on Apple silicon and Intel.
-  The <a href="/releases/download?for=macos">disk image</a> is also available, and
-  <a href="/releases/">every release</a>.</p>
-  {{else}}
-  <p>The first release is on its way.</p>
-  {{end}}
-</div>
+<section class="section" id="how">
+  <div class="wrap">
+    <p class="section-label">How it works</p>
+    <p class="section-sub">It is closing the lid that puts a Mac to sleep. Once
+    the lid is closed, a Mac that is awake stays awake. wake uses that, and
+    nothing more.</p>
+    <div class="features">
+      <div class="feature">
+        <h2>One switch in the menu bar</h2>
+        <p>Turn it on before you close the lid. The sentence under the switch
+        says what is happening: waiting for your password, keeping sleep off
+        while the lid is open, or awake with the lid closed.</p>
+      </div>
+      <div class="feature">
+        <h2>Asks for your password once</h2>
+        <p>The setting that stops a closing lid putting the Mac to sleep is one
+        only an administrator may change, so turning wake on shows the
+        system's own password dialog, each time you turn it on.</p>
+      </div>
+      <div class="feature">
+        <h2>Sleep is off only while the lid is open</h2>
+        <p>The moment the lid closes, sleep is enabled again, and the Mac stays
+        awake. Nothing is left changed if the app stops, and the Mac sleeps as
+        usual once wake is off.</p>
+      </div>
+      <div class="feature">
+        <h2>Off means asleep</h2>
+        <p>Turn the switch off while the lid is closed and the Mac goes to
+        sleep at once, as it would have when you closed the lid. Quitting the
+        app does not put the Mac to sleep.</p>
+      </div>
+      <div class="feature">
+        <h2>Nothing collected</h2>
+        <p>wake keeps nothing about you and sends nothing anywhere. The only
+        connection it makes is to this site, to check for a new version.</p>
+      </div>
+      <div class="feature">
+        <h2>Mind the heat</h2>
+        <p>A MacBook that is awake inside a bag can get hot. Be careful when
+        you pack one away with wake turned on.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h2>What it does</h2>
-<p>wake sits in the menu bar. Turn its switch on and the Mac does not go
-to sleep when you close the lid. It keeps running whatever it was doing, such
-as a download, a build or a backup, until you turn the switch off.</p>
+<section class="section get" id="get">
+  <div class="wrap">
+    <p class="section-label">Get wake</p>
+    <p class="section-sub">For a MacBook running macOS 13 or later, on Apple
+    silicon or Intel. It updates itself.</p>
+{{if .Released}}    <div class="downloads">
+      <div>
+        <img class="demo" src="/demo/panel.png" alt="wake's panel under the menu bar, with its switch" width="340" height="181" loading="lazy">
+        <a class="btn" href="/download">Download for Mac</a>
+        <p class="fine">{{with .Version}}Version {{.}}, as{{else}}As{{end}} an installer. Also as a
+        <a href="/releases/download?for=macos">disk image</a>, and
+        <a href="/releases/">every release</a>.</p>
+      </div>
+    </div>
+{{else}}    <p class="fine">The first release is on its way.</p>
+{{end}}  </div>
+</section>
 
-<h2>How it works</h2>
-<ol>
-  <li>Turning it on asks for an administrator's password, because the setting
-  that stops a closing lid putting the Mac to sleep is one only an
-  administrator may change.</li>
-  <li>Sleep is disabled only while the lid is open. The moment the lid closes,
-  sleep is enabled again, and the Mac stays awake, because it is closing the
-  lid that puts a Mac to sleep.</li>
-  <li>Turn it off while the lid is closed and the Mac goes to sleep at once.
-  Quitting the app does not put the Mac to sleep.</li>
-</ol>
-<p class="caution">A MacBook that is awake inside a bag can get hot. Be careful
-when you pack one away with wake turned on.</p>
-
-<h2>Privacy</h2>
-<p>wake keeps nothing about you and sends nothing anywhere. The only
-connection it makes is to this site, to check for a new version.</p>
-
-<h2>Credits</h2>
-<p>It is a menu bar version of
-<a href="https://github.com/clashman/caffeinate-plus">caffeinate+</a>, a
-command line tool by clashman, and it is built with
-<a href="https://github.com/imclaren/vero">vero</a>.</p>
-
-<footer>© {{.Year}} Calm Apps.</footer>
-</main>
-</body>
-</html>
+<section class="section">
+  <div class="wrap">
+    <p class="section-label">Credits</p>
+    <p class="section-sub">wake is a menu bar version of
+    <a href="https://github.com/clashman/caffeinate-plus">caffeinate+</a>, a
+    command line tool by clashman, and it is built with
+    <a href="https://github.com/imclaren/vero">vero</a>. Its source is on
+    <a href="https://github.com/imclaren/wake">GitHub</a>.</p>
+  </div>
+</section>
+{{template "foot" .}}

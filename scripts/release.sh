@@ -37,7 +37,7 @@
 #
 # 3. ~/.config/wake/release.env, outside the repository, is optional:
 #
-#        WAKE_MAINTAINER="Calm Apps <email>"   who the packages name
+#        WAKE_MAINTAINER="calmapps <email>"     who the packages name
 #        VERO_MAC_IDENTITY, VERO_MAC_INSTALLER      the Developer ID certificates
 #        VERO_NOTARY_PROFILE                        the notarytool profile
 #        WAKE_KEY                               the signing key's folder

@@ -1,0 +1,202 @@
+{{define "head"}}<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="/icon.png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta name="theme-color" content="#f4f7f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c141d" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<style>
+/* The layout, type and ground of calmdocs.com and mirrorinbox.com, so that
+   the sites read as one family. The accent is the blue of wake's own icon,
+   as each site takes its accent from its icon. Every rule is written out
+   here, with no framework and no build step. */
+:root {
+  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --ink: #e9eef1;
+  --bg: #f4f7f8;
+  --raised: #e9eef1;
+  --hero: #fbfcfd;
+  --text: #16222e;
+  --muted: #4a5b68;
+  --dim: #566874;
+  --rule: rgba(22, 34, 46, 0.14);
+  --rule-soft: rgba(22, 34, 46, 0.09);
+  --accent: #2a5490;
+  --link: #2d5b9a;
+  --link-hover: #1d3f6d;
+  --btn-text: #ffffff;
+  --btn-hover: #16222e;
+
+  --measure: 34rem;
+  --post: 40rem;
+  --wide: 58rem;
+}
+
+/* The same tokens after dark. Every colour in :root is redefined here, so
+   that neither block can drift out of step with the other. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #080f16;
+    --bg: #0c141d;
+    --raised: #13202b;
+    --hero: #080f16;
+    --text: #dde6ec;
+    --muted: #a3b4c1;
+    --dim: #7b8d9b;
+    --rule: rgba(221, 230, 236, 0.10);
+    --rule-soft: rgba(221, 230, 236, 0.06);
+    --accent: #8fb8ec;
+    --link: #86b1e6;
+    --link-hover: #aacbf2;
+    --btn-text: #080f16;
+    --btn-hover: #ffffff;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { background-color: var(--bg); color: var(--text); color-scheme: light dark; }
+
+body {
+  background-color: var(--bg);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+main { flex: 1; width: 100%; }
+img { max-width: 100%; }
+a { color: var(--link); text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: var(--link-hover); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.wrap { width: 100%; max-width: var(--wide); margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
+
+/* The header: the name on the left and a few links on the right, which
+   wrap onto a second line on a phone. */
+.topbar { border-bottom: 1px solid var(--rule-soft); padding-top: env(safe-area-inset-top, 0px); }
+.topbar__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.75rem 1.5rem;
+  padding-top: 1.1rem; padding-bottom: 1.1rem;
+}
+.brand { display: flex; align-items: center; gap: 0.65rem; color: var(--text); font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
+.brand:hover { color: var(--text); }
+.brand img { width: 1.9rem; height: 1.9rem; border-radius: 26%; display: block; }
+.topbar nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; font-size: 0.9rem; }
+.topbar nav a { color: var(--muted); }
+.topbar nav a:hover { color: var(--accent); }
+
+/* The home page's hero: the ground fades from the colour of calmdocs's
+   scrim to the page's own. */
+.hero { background: linear-gradient(180deg, var(--hero) 0%, var(--hero) 55%, var(--bg) 100%); }
+.hero h1 { max-width: 24ch; }
+.hero__inner { padding-top: 6rem; padding-bottom: 6rem; }
+
+h1 {
+  font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+  font-weight: 600; line-height: 1.12; letter-spacing: -0.02em;
+  margin: 0 0 1.5rem; max-width: 18ch;
+}
+.lede { font-size: 1.15rem; line-height: 1.65; color: var(--muted); margin: 0 0 2.25rem; max-width: var(--measure); }
+
+.cta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.9rem; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 2.25rem; padding: 0.4rem 1.1rem;
+  border-radius: 0.4rem;
+  font-size: 0.93rem; font-weight: 600; line-height: 1.2;
+  background: var(--accent); border: 1px solid var(--accent); color: var(--btn-text);
+  text-decoration: none; text-align: center;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.btn:hover { background: var(--btn-hover); border-color: var(--btn-hover); color: var(--btn-text); }
+.cta .btn { min-height: 2.75rem; padding: 0.5rem 1.4rem; font-size: 0.97rem; }
+.btn--ghost { background: transparent; border-color: var(--rule); color: var(--text); }
+.btn--ghost:hover { background: transparent; border-color: var(--accent); color: var(--accent); }
+
+.section { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+.section-label {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--dim); margin: 0 0 0.6rem;
+}
+.section-sub { color: var(--muted); margin: 0 0 2.25rem; max-width: var(--measure); }
+.get { background: var(--ink); border-top: 1px solid var(--rule-soft); }
+
+.fine { color: var(--dim); font-size: 0.9rem; margin: 0.6rem 0 0; }
+
+/* What the app does, in calmdocs's grid of features. */
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 2.5rem 3rem; }
+.feature h2 { font-size: 1.1rem; font-weight: 600; line-height: 1.35; margin: 0 0 0.5rem; color: var(--text); }
+.feature p { margin: 0; color: var(--muted); font-size: 0.97rem; line-height: 1.65; }
+
+/* The download: the panel as it opens from the menu bar, the button, and
+   the line under it that says what it is for. */
+.downloads { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 2.5rem 3rem; align-items: start; }
+.downloads > div { display: grid; justify-items: start; }
+.downloads .btn { margin-top: 0.9rem; white-space: nowrap; }
+.downloads p { color: var(--muted); font-size: 0.93rem; line-height: 1.6; }
+.downloads p a { white-space: nowrap; text-decoration: underline; text-underline-offset: 0.15em; }
+img.demo { display: block; width: 100%; max-width: 21rem; height: auto; margin: 0; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18); }
+
+/* The privacy page, as calmdocs's sets it. */
+.post { max-width: var(--post); padding-top: 4rem; padding-bottom: 4rem; }
+.post h1 { font-size: clamp(1.9rem, 4.5vw, 2.5rem); line-height: 1.15; margin: 0 0 0.75rem; max-width: none; }
+.post .lede { font-size: 1.1rem; margin: 0 0 3rem; }
+.prose p { margin: 0 0 1.35em; color: var(--muted); }
+.prose h2 { font-size: 1.15rem; font-weight: 600; line-height: 1.35; color: var(--text); margin: 2.75rem 0 0.9rem; }
+.prose ol, .prose ul { margin: 0 0 1.35em; padding-left: 1.4em; color: var(--muted); }
+.prose li + li { margin-top: 0.4em; }
+.prose li::marker { color: var(--dim); }
+.prose strong { color: var(--text); font-weight: 600; }
+
+.colophon {
+  background: var(--ink); border-top: 1px solid var(--rule-soft);
+  padding-top: 2.5rem; padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+}
+.colophon__inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.25rem 2rem; }
+.colophon nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-size: 0.9rem; }
+.colophon nav a { color: var(--dim); }
+.colophon nav a:hover { color: var(--accent); }
+.colophon .fine { font-size: 0.85rem; color: var(--dim); margin: 0; }
+
+@media (max-width: 620px) {
+  .hero__inner { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+  .section { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+  .post { padding-top: 2.75rem; padding-bottom: 2.75rem; }
+}
+</style>{{end}}
+{{define "top"}}</head><body>
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="/"><img src="/icon.png" alt=""><span>wake</span></a>
+    <nav>
+      <a href="/#get">Download</a>
+      <a href="/privacy">Privacy</a>
+      <a href="https://calmapps.com">calmapps</a>
+    </nav>
+  </div>
+</header>
+<main>{{end}}
+{{define "foot"}}</main>
+<footer class="colophon">
+  <div class="wrap colophon__inner">
+    <p class="fine">&copy; {{.Year}} calmapps.</p>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy</a>
+      <a href="https://calmapps.com">calmapps.com</a>
+      <a href="https://github.com/imclaren/wake">Source</a>
+    </nav>
+  </div>
+</footer>
+</body></html>{{end}}

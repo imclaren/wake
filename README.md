@@ -25,6 +25,9 @@ Mac awake, because it is closing the lid that puts a Mac to sleep. The
 worker also holds caffeinate's assertion against idle sleep while the
 switch is on.
 
+The panel also has "Open at login", which asks macOS itself, through
+SMAppService, so that the app shows under Login Items in System Settings.
+
 The helper ends when the file the worker made for it goes away, which is
 the switch being turned off, or when the worker has gone. If the lid is
 closed when the switch is turned off, it puts the Mac to sleep, as

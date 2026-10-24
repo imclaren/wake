@@ -56,7 +56,14 @@ func New(cfg Config) *Site {
 		cfg.Log = log.Printf
 	}
 	s := &Site{cfg: cfg, mux: http.NewServeMux()}
-	s.mux.HandleFunc("GET /{$}", s.home)
+	s.mux.HandleFunc("GET /{$}", s.page("home.html"))
+	s.mux.HandleFunc("GET /privacy", s.page("privacy.html"))
+	s.mux.HandleFunc("GET /demo/panel.png", func(w http.ResponseWriter, r *http.Request) {
+		data, _ := pages.ReadFile("pages/demo/panel.png")
+		w.Header().Set("Content-Type", "image/png")
+		w.Header().Set("Cache-Control", "public, max-age=86400")
+		w.Write(data)
+	})
 	s.mux.HandleFunc("GET /icon.png", func(w http.ResponseWriter, r *http.Request) {
 		data, _ := pages.ReadFile("pages/icon.png")
 		w.Header().Set("Content-Type", "image/png")
@@ -88,17 +95,20 @@ var pages embed.FS
 
 var templates = template.Must(template.ParseFS(pages, "pages/*.html"))
 
-// home is the page: what the app does, and the download.
-func (s *Site) home(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	data := map[string]any{
-		"BaseURL":  strings.TrimSuffix(s.cfg.BaseURL, "/"),
-		"Version":  s.version(),
-		"Released": fileExists(filepath.Join(s.cfg.ReleasesDir, "latest.json")),
-		"Year":     time.Now().Year(),
-	}
-	if err := templates.ExecuteTemplate(w, "home.html", data); err != nil {
-		s.cfg.Log("home.html: %v", err)
+// page serves one of the pages: the home page, with what the app does and
+// the download, or the privacy page.
+func (s *Site) page(name string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		data := map[string]any{
+			"BaseURL":  strings.TrimSuffix(s.cfg.BaseURL, "/"),
+			"Version":  s.version(),
+			"Released": fileExists(filepath.Join(s.cfg.ReleasesDir, "latest.json")),
+			"Year":     time.Now().Year(),
+		}
+		if err := templates.ExecuteTemplate(w, name, data); err != nil {
+			s.cfg.Log("%s: %v", name, err)
+		}
 	}
 }
 
