@@ -15,7 +15,7 @@ Download the disk image or the installer package from
 [wake.calmapps.com](https://wake.calmapps.com). 
 
 The first time the switch is turned on, the app asks for an administrator's
-password, once, and never again. The section below says why.
+password, once, and never again. 
 
 ## Build and run from source
 
