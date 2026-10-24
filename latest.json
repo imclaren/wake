@@ -1,0 +1,14 @@
+{
+  "name": "wake",
+  "version": "0.2.0",
+  "downloads": {
+    "macos-pkg": {
+      "version": "0.2.0",
+      "url": "https://wake.calmapps.com/releases/macos/wake-0.2.0-macos.pkg"
+    },
+    "macos-universal": {
+      "version": "0.2.0",
+      "url": "https://wake.calmapps.com/releases/macos/wake-0.2.0-macos.dmg"
+    }
+  }
+}

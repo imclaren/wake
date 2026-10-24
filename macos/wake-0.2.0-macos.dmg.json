@@ -1,0 +1,6 @@
+{
+  "bundleVersion": "0.2.0",
+  "shortVersion": "0.2.0",
+  "minimum": "13.0",
+  "app": "wake.app"
+}

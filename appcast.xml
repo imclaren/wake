@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>wake</title>
+    <link>https://wake.calmapps.com/releases</link>
+    <description>Keeps a Mac awake, even with its lid closed.</description>
+    <language>en</language>
+    <item>
+      <title>wake 0.2.0</title>
+      <pubDate>Sat, 24 Oct 2026 22:56:31 +0000</pubDate>
+      <sparkle:version>0.2.0</sparkle:version>
+      <sparkle:shortVersionString>0.2.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description>&lt;p&gt;wake can now keep a Mac awake while its lid is open, without a password, as well as after the lid is closed. A timer turns it off after one to eight hours, and the display can be kept on as well.&lt;/p&gt;&#xA;</description>
+      <enclosure url="https://wake.calmapps.com/releases/macos/wake-0.2.0-macos.dmg" length="7473207" type="application/octet-stream" sparkle:edSignature="SSUP8yFfuq6ofRlEboRVvJtA1jWM8gSsmUVzHy4ipiVeLs48QNMDcMbFiE+d3Z6snieFvoOj7ooX2YSuAYtkAw=="></enclosure>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install wake</title>
+<style>
+  :root { color-scheme: light dark; --ink: #1d1d1f; --soft: #6e6e73; --line: #d2d2d7; --bg: #fff; --code: #f5f5f7; }
+  @media (prefers-color-scheme: dark) { :root { --ink: #f5f5f7; --soft: #a1a1a6; --line: #424245; --bg: #1d1d1f; --code: #2c2c2e; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { margin: 0 0 4px; font-size: 28px; }
+  h2 { margin: 32px 0 8px; font-size: 20px; }
+  p { margin: 8px 0; }
+  .soft { color: var(--soft); }
+  .yours { font-size: 13px; font-weight: 600; color: var(--soft); margin-left: 8px; }
+  pre { background: var(--code); padding: 12px 14px; border-radius: 8px; overflow-x: auto; font-size: 14px; }
+  section { border-top: 1px solid var(--line); }
+  a { color: inherit; }
+  code { font-size: 0.9em; }
+  .recordings { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .recordings figure { margin: 0; }
+  .recordings img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 6px; }
+  .recordings figcaption { font-size: 13px; color: var(--soft); margin-top: 4px; }
+</style>
+</head>
+<body>
+<main>
+<h1>wake</h1>
+<p>Keeps a Mac awake, even with its lid closed.</p>
+<p class="soft">Version 0.2.0 · <a href="https://wake.calmapps.com">https://wake.calmapps.com</a></p>
+<div id="systems">
+<section data-system="macos">
+<h2>Mac</h2>
+<p><a href="https://wake.calmapps.com/releases/macos/wake-0.2.0-macos.dmg">Download wake</a> <span class="soft">version 0.2.0</span>, open it, and drag wake to Applications. It checks for updates itself.</p>
+<p class="soft">If your Mac says that it cannot check the app, open System Settings, choose Privacy &amp; Security, and choose <b>Open Anyway</b>.</p>
+</section>
+</div>
+</main>
+<script>
+  
+  var ua = navigator.userAgent, system = /Windows/.test(ua) ? "windows" : /Android/.test(ua) ? "android" :
+    /iPhone|iPad/.test(ua) ? "ios" : /Macintosh/.test(ua) ? "macos" : /FreeBSD/.test(ua) ? "freebsd" : /OpenBSD/.test(ua) ? "openbsd" :
+    /NetBSD/.test(ua) ? "netbsd" : /DragonFly/.test(ua) ? "dragonfly" : /SunOS|illumos/.test(ua) ? "illumos" :
+    /Linux|X11/.test(ua) && !/Android/.test(ua) ? "linux" : "";
+  var mine = system ? document.querySelectorAll('[data-system="' + system + '"]') : [];
+  var list = document.getElementById("systems");
+  for (var i = mine.length - 1; i >= 0; i--) {
+    list.insertBefore(mine[i], list.firstChild);
+    mine[i].querySelector("h2").insertAdjacentHTML("beforeend", '<span class="yours">For this computer</span>');
+  }
+</script>
+</body>
+</html>
