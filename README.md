@@ -3,7 +3,7 @@
 A Mac menu bar app that keeps a MacBook awake after its lid is closed, and
 turns that on and off with a switch. It is a menu bar version of
 [caffeinate+](https://github.com/clashman/caffeinate-plus), a command line
-tool by clashman, and it is built on [vero](https://github.com/imclaren/vero).
+tool by clashman.
 
 Turn the switch on and the Mac does not go to sleep when you close the lid,
 so that a download, a build or a backup runs on until you turn the switch
@@ -48,8 +48,12 @@ You need a Mac with Apple silicon, Xcode and Go.
    ```
 
 The debug build is a bare executable rather than an app bundle, which is
-enough to work on the panel and the switch. "Open at login" and "Check
-for Updates" need a real bundle. For one, install vero's command and run
+enough to work on the panel and the switch. 
+
+## Open at login and automated updates (Sparkle) functionality
+
+"Open at login" and "Check
+for Updates" need a real bundle. For one, install [vero](https://github.com/imclaren/vero)'s command and run
 `vero install`, which builds the bundle, signs it with the Developer ID
 certificate in your keychain, or ad hoc without one, and puts it in
 Applications.
@@ -69,7 +73,7 @@ by every installer.
 
 ### Before the first release
 
-1. Clone vero beside this repository, or set `VERO` to a clone.
+1. Clone [vero](https://github.com/imclaren/vero) beside this repository, or set `VERO` to a clone.
 
    ```bash
    git clone https://github.com/imclaren/vero ../vero
