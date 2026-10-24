@@ -17,22 +17,10 @@ Download the disk image or the installer package from
 The first time the switch is turned on, the app asks for an administrator's
 password, once, and never again. 
 
-## Build and run from source
+## Build and release
 
 You need a Mac with Apple silicon, Go, Xcode and vero's command, which is
 installed with `go install github.com/imclaren/vero/cmd/vero@latest`.
-
-```bash
-cd macos && ./build.sh                       # the worker and the app
-VERO_PROFILE=dev ./.build/debug/wake         # run it, apart from the copy you use
-go test ./... && go vet ./...                # the worker and the site
-vero gen --check                             # the Swift binding is current
-```
-
-`VERO_PROFILE` gives a development copy settings of its own, so that it
-cannot touch the settings of the copy you use.
-
-## Release
 
 ```bash
 scripts/release.sh --notes "What is new."
@@ -42,8 +30,7 @@ scripts/release.sh --dry-run /tmp/wake-dry   # builds without signing or publish
 The script builds the installer and the disk image, signs and notarises
 them, makes the release folder with the Sparkle appcast, and replaces the
 repository's `releases` branch with that folder as a single commit, so
-that the repository's history does not grow by every installer.
-`scripts/release.sh --help` has the one-time setup.
+that the repository's history does not grow as we create every new installer.
 
 A release needs a vero checkout beside this repository, a Developer ID
 certificate, a notarytool profile, and the signing key folder that vero
