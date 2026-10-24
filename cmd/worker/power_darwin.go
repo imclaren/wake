@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"sync"
 	"syscall"
 )
 
@@ -169,4 +170,27 @@ func startHelper(exe, flag string, parent int) (*exec.Cmd, *bytes.Buffer, error)
 		return nil, nil, err
 	}
 	return cmd, &stderr, nil
+}
+
+// holdAwake holds off idle sleep, and display sleep as well when display is
+// set, through caffeinate, which any account may run. It ends when the
+// function it returns is called, or when this process does, which -w
+// watches.
+func holdAwake(display bool) (func(), error) {
+	args := []string{"-i"}
+	if display {
+		args = append(args, "-d")
+	}
+	args = append(args, "-w", strconv.Itoa(os.Getpid()))
+	cmd := exec.Command("/usr/bin/caffeinate", args...)
+	if err := cmd.Start(); err != nil {
+		return nil, err
+	}
+	var once sync.Once
+	return func() {
+		once.Do(func() {
+			cmd.Process.Kill()
+			cmd.Wait()
+		})
+	}, nil
 }

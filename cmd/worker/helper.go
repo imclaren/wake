@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 )
@@ -15,6 +16,7 @@ import (
 // the lid is opened again, sleep is disabled again, until it is turned off.
 //
 // It ends when the flag file goes, which is a turn off at the menu bar,
+// when the flag file says "handover", which is a change to the open mode,
 // when the worker that started it has gone, or on SIGINT or SIGTERM. On
 // the way out it enables sleep if it had disabled it; and if the lid is
 // closed and it was turned off, it puts the Mac to sleep, as caffeinate+
@@ -36,8 +38,14 @@ loop:
 			break loop
 		case <-time.After(500 * time.Millisecond):
 		}
-		if _, err := os.Stat(flag); err != nil {
+		data, err := os.ReadFile(flag)
+		if err != nil {
 			turnedOff = true
+			break
+		}
+		if strings.TrimSpace(string(data)) == "handover" {
+			// The worker holds the Mac awake from here, so it is not put
+			// to sleep, even with the lid closed.
 			break
 		}
 		if parent > 0 && !processAlive(parent) {

@@ -1,21 +1,29 @@
 # wake
 
-A Mac menu bar app that keeps a MacBook awake after its lid is closed, and
+A Mac menu bar app that keeps a Mac awake, even with its lid closed, and
 turns that on and off with a switch. It is a menu bar version of
 [caffeinate+](https://github.com/clashman/caffeinate-plus), a command line
 tool by clashman.
 
-Turn the switch on and the Mac does not go to sleep when you close the lid,
-so that a download, a build or a backup runs on until you turn the switch
-off. Turn it off while the lid is closed and the Mac goes to sleep at once.
+Turn the switch on and the Mac stays awake, in one of two ways:
+
+- **While the lid is open.** The Mac stays awake, and sleeps as usual when
+  the lid is closed. This needs no password.
+- **Even when the lid is closed.** A MacBook stays awake after its lid is
+  closed, so that a download, a build or a backup runs on. Turn it off
+  while the lid is closed and the Mac goes to sleep at once.
+
+It stays on until it is turned off, or for one, two, four or eight hours,
+and the display can be kept on as well or allowed to turn off.
 
 ## Install
 
 Download the disk image or the installer package from
 [wake.calmapps.com](https://wake.calmapps.com).
 
-The first time the switch is turned on, the app asks for an administrator's
-password, once, and never again.
+The first time the Mac is kept awake with its lid closed, the app explains
+why it needs an administrator's password, and then asks for it, once, and
+never again.
 
 ## Build and run
 

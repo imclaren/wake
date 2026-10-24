@@ -7,17 +7,19 @@ display_name = "wake"
 id = "com.calmapps.wake"
 # It lives in the menu bar.
 menubar = true
-summary = "Keeps a MacBook awake after its lid is closed."
+summary = "Keeps a Mac awake, even with its lid closed."
 description = """
-wake sits in the menu bar. Turn its switch on and the Mac does not go
-to sleep when you close the lid, so that a download, a build or a backup
-runs on until you turn the switch off.
+wake sits in the menu bar. Turn its switch on and the Mac stays awake,
+until you turn it off or for the hours you choose, with the display on or
+allowed to turn off.
 
-The first time it is turned on it asks for an administrator's password,
-and never again. Sleep is disabled only while the lid is open, and enabled
-again the moment the lid closes, which leaves the Mac awake. Turn it off
-while the lid is closed and the Mac goes to sleep at once. It is a menu
-bar version of clashman's caffeinate+.
+It keeps the Mac awake while the lid is open and lets it sleep when the
+lid closes, which needs no password. Or it keeps a MacBook awake even
+after the lid is closed, so that a download, a build or a backup runs on.
+The first time that is chosen it explains why and asks for an
+administrator's password, once. Turn it off while the lid is closed and
+the Mac goes to sleep at once. It is a menu bar version of clashman's
+caffeinate+.
 """
 # scripts/release.sh replaces this with WAKE_MAINTAINER from
 # ~/.config/wake/release.env, or with your git email.

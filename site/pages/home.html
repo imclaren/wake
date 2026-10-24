@@ -1,13 +1,14 @@
 {{template "head" .}}<title>wake</title>
-<meta name="description" content="A Mac menu bar app that keeps a MacBook awake after its lid is closed.">
+<meta name="description" content="A Mac menu bar app that keeps a Mac awake, even with its lid closed.">
 <link rel="canonical" href="{{.BaseURL}}/">
 {{template "top" .}}
 <section class="hero">
   <div class="wrap hero__inner">
-    <h1>Close the lid. Keep working.</h1>
-    <p class="lede">wake is a Mac menu bar app with one switch. Turn it on and
-    your MacBook stays awake after you close the lid, so that a download, a
-    build or a backup runs on until you turn it off.</p>
+    <h1>Stay awake. Even with the lid closed.</h1>
+    <p class="lede">wake is a Mac menu bar app that keeps your Mac awake for
+    as long as you choose. Keep it awake while the lid is open, or keep a
+    MacBook awake after you close the lid, so that a download, a build or a
+    backup runs on until you turn it off.</p>
     <div class="cta">
       {{if .Released}}<a class="btn" href="/download">Download for Mac</a>{{end}}
       <a class="btn btn--ghost" href="#how">How it works</a>
@@ -18,35 +19,41 @@
 <section class="section" id="how">
   <div class="wrap">
     <p class="section-label">How it works</p>
-    <p class="section-sub">It is closing the lid that puts a Mac to sleep. Once
-    the lid is closed, a Mac that is awake stays awake. wake uses that, and
-    nothing more.</p>
+    <p class="section-sub">A switch in the menu bar, and a choice of how the
+    Mac stays awake and for how long.</p>
     <div class="features">
       <div class="feature">
-        <h2>One switch in the menu bar</h2>
-        <p>Turn it on before you close the lid. The sentence under the switch
-        says what is happening: waiting for your password, keeping sleep off
-        while the lid is open, or awake with the lid closed.</p>
+        <h2>While the lid is open</h2>
+        <p>The Mac stays awake while you use it or leave it, and sleeps as
+        usual when you close the lid. This is the way wake starts, and it
+        needs no password.</p>
+      </div>
+      <div class="feature">
+        <h2>Even when the lid is closed</h2>
+        <p>It is closing the lid that puts a Mac to sleep, and a Mac that is
+        awake once the lid is closed stays awake. wake turns sleep off only
+        while the lid is open and on again the moment it closes, which leaves
+        the Mac awake with nothing left changed.</p>
+      </div>
+      <div class="feature">
+        <h2>For as long as you choose</h2>
+        <p>Keep the Mac awake until you turn wake off, or for one, two, four
+        or eight hours. Keep the display on as well, or let it turn off while
+        the Mac carries on.</p>
       </div>
       <div class="feature">
         <h2>Asks for your password once</h2>
-        <p>The setting that stops a closing lid putting the Mac to sleep is one
-        only an administrator may change, so the first time you turn wake on
-        it shows the system's own password dialog. It writes a rule that lets
-        your account change that one setting from then on, and never asks
-        again.</p>
-      </div>
-      <div class="feature">
-        <h2>Sleep is off only while the lid is open</h2>
-        <p>The moment the lid closes, sleep is enabled again, and the Mac stays
-        awake. Nothing is left changed if the app stops, and the Mac sleeps as
-        usual once wake is off.</p>
+        <p>Keeping a Mac awake with its lid closed changes a setting that only
+        an administrator may change. The first time you choose it, wake says
+        why, then shows the system's own password dialog. It writes a rule
+        that lets your account change that one setting from then on, and
+        never asks again.</p>
       </div>
       <div class="feature">
         <h2>Off means asleep</h2>
-        <p>Turn the switch off while the lid is closed and the Mac goes to
-        sleep at once, as it would have when you closed the lid. Quitting the
-        app does not put the Mac to sleep.</p>
+        <p>Turn wake off while the lid is closed and the Mac goes to sleep at
+        once, as it would have when you closed the lid. Quitting the app does
+        not put the Mac to sleep.</p>
       </div>
       <div class="feature">
         <h2>Nothing collected</h2>
@@ -56,7 +63,7 @@
       <div class="feature">
         <h2>Mind the heat</h2>
         <p>A MacBook that is awake inside a bag can get hot. Be careful when
-        you pack one away with wake turned on.</p>
+        you pack one away with wake keeping it awake.</p>
       </div>
     </div>
   </div>
@@ -65,8 +72,9 @@
 <section class="section get" id="get">
   <div class="wrap">
     <p class="section-label">Get wake</p>
-    <p class="section-sub">For a MacBook running macOS 13 or later, on Apple
-    silicon or Intel. It updates itself.</p>
+    <p class="section-sub">For a Mac running macOS 13 or later, on Apple
+    silicon or Intel. Keeping it awake with the lid closed needs a MacBook.
+    It updates itself.</p>
 {{if .Released}}    <div class="downloads">
       <div>
         <img class="demo" src="/demo/panel.png" alt="wake's panel under the menu bar, with its switch" width="340" height="181" loading="lazy">

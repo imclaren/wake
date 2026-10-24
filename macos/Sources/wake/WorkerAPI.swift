@@ -10,12 +10,25 @@ struct Status: Codable, Hashable, Sendable {
     var on: Bool = false
     /// Phase is one of the phases above.
     var phase: String = ""
+    /// Mode is "open", to keep the Mac awake while its lid is open, or
+    /// "closed", to keep it awake even after the lid is closed.
+    var mode: String = ""
+    /// Display is whether the display is kept on as well.
+    var display: Bool = false
+    /// Minutes is how long it stays on once turned on, and 0 is until it is
+    /// turned off.
+    var minutes: Int = 0
+    /// Until is when the timer turns it off, as HH:MM, and empty without one.
+    var until: String = ""
     /// LidClosed is whether the lid is closed now.
     var lidClosed: Bool = false
     /// SleepDisabled is the system's own SleepDisabled setting.
     var sleepDisabled: Bool = false
     /// HasLid is whether this Mac has a lid at all.
     var hasLid: Bool = false
+    /// RuleInstalled is whether the rule for sudo is in place, so that the
+    /// closed mode can be turned on without asking for a password.
+    var ruleInstalled: Bool = false
     /// Since is when it was turned on, as HH:MM.
     var since: String = ""
     /// Problem is why the last attempt to turn it on failed, in a sentence.
@@ -27,9 +40,14 @@ struct Status: Codable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey {
         case on
         case phase
+        case mode
+        case display
+        case minutes
+        case until
         case lidClosed
         case sleepDisabled
         case hasLid
+        case ruleInstalled
         case since
         case problem
         case remember
@@ -41,9 +59,14 @@ extension Status {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         on = try c.decodeIfPresent(Bool.self, forKey: .on) ?? false
         phase = try c.decodeIfPresent(String.self, forKey: .phase) ?? ""
+        mode = try c.decodeIfPresent(String.self, forKey: .mode) ?? ""
+        display = try c.decodeIfPresent(Bool.self, forKey: .display) ?? false
+        minutes = try c.decodeIfPresent(Int.self, forKey: .minutes) ?? 0
+        until = try c.decodeIfPresent(String.self, forKey: .until) ?? ""
         lidClosed = try c.decodeIfPresent(Bool.self, forKey: .lidClosed) ?? false
         sleepDisabled = try c.decodeIfPresent(Bool.self, forKey: .sleepDisabled) ?? false
         hasLid = try c.decodeIfPresent(Bool.self, forKey: .hasLid) ?? false
+        ruleInstalled = try c.decodeIfPresent(Bool.self, forKey: .ruleInstalled) ?? false
         since = try c.decodeIfPresent(String.self, forKey: .since) ?? ""
         problem = try c.decodeIfPresent(String.self, forKey: .problem) ?? ""
         remember = try c.decodeIfPresent(Bool.self, forKey: .remember) ?? false
@@ -52,9 +75,14 @@ extension Status {
         var c = encoder.container(keyedBy: CodingKeys.self)
         try c.encode(on, forKey: .on)
         try c.encode(phase, forKey: .phase)
+        try c.encode(mode, forKey: .mode)
+        try c.encode(display, forKey: .display)
+        try c.encode(minutes, forKey: .minutes)
+        try c.encode(until, forKey: .until)
         try c.encode(lidClosed, forKey: .lidClosed)
         try c.encode(sleepDisabled, forKey: .sleepDisabled)
         try c.encode(hasLid, forKey: .hasLid)
+        try c.encode(ruleInstalled, forKey: .ruleInstalled)
         try c.encode(since, forKey: .since)
         try c.encode(problem, forKey: .problem)
         try c.encode(remember, forKey: .remember)
@@ -72,10 +100,28 @@ struct RememberRequest: NamedRequest {
     }
 }
 
+struct SetOptionsRequest: NamedRequest {
+    typealias Reply = Status
+    static let name = "setOptions"
+    /// Mode is "open" or "closed".
+    var mode: String = ""
+    /// Display is whether to keep the display on as well.
+    var display: Bool = false
+    /// Minutes is how long to stay on, and 0 is until it is turned off.
+    var minutes: Int = 0
+
+    enum CodingKeys: String, CodingKey {
+        case mode
+        case display
+        case minutes
+    }
+}
+
 /// Update handles a request with no accompanying data. "status" returns
-/// the state, "turnOn" keeps the Mac awake after its lid is closed, and
-/// "turnOff" lets it sleep again. "remember" sets whether the switch is
-/// remembered across logins, and takes a Remember.
+/// the state, "turnOn" keeps the Mac awake in the chosen mode, and
+/// "turnOff" lets it sleep again. "setOptions" sets the mode, the display
+/// and the timer, and takes an Options. "remember" sets whether the switch
+/// is remembered across logins, and takes a Remember.
 struct StatusRequest: NamedRequest {
     typealias Reply = Status
     static let name = "status"
