@@ -143,10 +143,14 @@ h1 {
 /* The download: the panel as it opens from the menu bar, the button, and
    the line under it that says what it is for. */
 .downloads { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 2.5rem 3rem; align-items: start; }
-.downloads > div { display: grid; justify-items: start; }
+.downloads > div { display: grid; justify-items: start; min-width: 0; }
 .downloads .btn { margin-top: 0.9rem; white-space: nowrap; }
 .downloads p { color: var(--muted); font-size: 0.93rem; line-height: 1.6; }
 .downloads p a { white-space: nowrap; text-decoration: underline; text-underline-offset: 0.15em; }
+.brew h2 { font-size: 1.05rem; margin: 0 0 0.6rem; }
+.brew p { margin: 0 0 0.6rem; }
+.downloads p code, .cmd code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: var(--text); }
+.cmd { margin: 0.2rem 0 1rem; padding: 0.6rem 0.8rem; max-width: 100%; overflow-x: auto; background: var(--bg, #fff); border: 1px solid var(--rule-soft); border-radius: 8px; }
 img.demo { display: block; width: 100%; max-width: 21rem; height: auto; margin: 0; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18); }
 
 /* The privacy page, as calmdocs's sets it. */

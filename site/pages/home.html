@@ -81,8 +81,21 @@
         <a class="btn" href="/download">Download for Mac</a>
         <p class="fine">{{with .Version}}Version {{.}}, as{{else}}As{{end}} an installer. Also as a
         <a href="/releases/download?for=macos">disk image</a>, and
-        <a href="/releases/">every release</a>. Homebrew installs it with
-        <code>brew install --cask imclaren/tap/wake</code>.</p>
+        <a href="/releases/">every release</a>.</p>
+      </div>
+      <div class="brew">
+        <h2>Or with Homebrew</h2>
+        <p>If you use <a href="https://brew.sh">Homebrew</a>, it installs the
+        same signed and notarised app into Applications.</p>
+        <pre class="cmd"><code>brew install --cask imclaren/tap/wake</code></pre>
+        <p>wake then updates itself, as it does when it is downloaded, so
+        <code>brew upgrade</code> leaves it to do so. To remove it, quit wake
+        and run the command below. Adding <code>--zap</code> removes its
+        settings as well.</p>
+        <pre class="cmd"><code>brew uninstall --cask wake</code></pre>
+        <p>If wake was used with the lid closed, its rule for sudo stays until
+        it is removed, which Homebrew cannot do for you.</p>
+        <pre class="cmd"><code>sudo rm /private/etc/sudoers.d/wake-$(id -u)</code></pre>
       </div>
     </div>
 {{else}}    <p class="fine">The first release is on its way.</p>
