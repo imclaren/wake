@@ -13,7 +13,7 @@ The app provides two options to keep your Mac awake:
 
 ## Install
 
-Download the disk image or the installer package from
+Download the disk image or installer package from
 [wake.calmapps.com](https://wake.calmapps.com), or install it with
 [Homebrew](https://brew.sh):
 
