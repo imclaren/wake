@@ -10,8 +10,7 @@ The app provides options to keep your Mac awake, in one of two ways:
 - **While the lid is open.** The Mac stays awake, and sleeps as usual when
   the lid is closed. This needs no password.
 - **Even when the lid is closed.** A MacBook stays awake even after its lid is
-  closed, so that a download, a build or a backup runs on. Turn it off
-  while the lid is closed and the Mac goes to sleep at once.
+  closed, so that a download, a build or a backup continues to run.
 
 It stays on until it is turned off, or for one, two, four or eight hours,
 and the display can be kept on as well or allowed to turn off.
