@@ -12,9 +12,6 @@ The app provides options to keep your Mac awake, in one of two ways:
 - **Even when the lid is closed.** A MacBook stays awake even after its lid is
   closed, so that a download, a build or a backup continues to run.
 
-It stays on until it is turned off, or for one, two, four or eight hours,
-and the display can be kept on as well or allowed to turn off.
-
 ## Install
 
 Download the disk image or the installer package from
