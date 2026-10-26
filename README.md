@@ -5,7 +5,7 @@ turns that on and off with a switch. It is a menu bar version of
 [caffeinate+](https://github.com/clashman/caffeinate-plus), a command line
 tool by clashman.
 
-Turn the switch on and the Mac stays awake, in one of two ways:
+Turn the switch on and the app provides options to keep your Mac awake, in one of two ways:
 
 - **While the lid is open.** The Mac stays awake, and sleeps as usual when
   the lid is closed. This needs no password.
