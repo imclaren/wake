@@ -4,7 +4,7 @@ A Mac menu bar app that keeps a Mac awake, even with its lid closed. It is a men
 [caffeinate+](https://github.com/clashman/caffeinate-plus), a command line
 tool by clashman.
 
-The app provides options to keep your Mac awake, in one of two ways:
+The app provides two options to keep your Mac awake:
 
 - **While the lid is open.** The Mac stays awake, and sleeps as usual when
   the lid is closed. This needs no password.
