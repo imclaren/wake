@@ -9,7 +9,7 @@ Turn the switch on and the Mac stays awake, in one of two ways:
 
 - **While the lid is open.** The Mac stays awake, and sleeps as usual when
   the lid is closed. This needs no password.
-- **Even when the lid is closed.** A MacBook stays awake after its lid is
+- **Even when the lid is closed.** A MacBook stays awake even after its lid is
   closed, so that a download, a build or a backup runs on. Turn it off
   while the lid is closed and the Mac goes to sleep at once.
 
