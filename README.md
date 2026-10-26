@@ -1,7 +1,6 @@
 # wake
 
-A Mac menu bar app that keeps a Mac awake, even with its lid closed, and
-turns that on and off with a switch. It is a menu bar version of
+A Mac menu bar app that keeps a Mac awake, even with its lid closed. It is a menu bar version of
 [caffeinate+](https://github.com/clashman/caffeinate-plus), a command line
 tool by clashman.
 
